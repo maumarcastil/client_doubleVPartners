@@ -1,20 +1,31 @@
 import React from 'react'
-import { Input, Button } from '@material-tailwind/react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import toast from 'react-hot-toast'
+import { Input, Button } from '@material-tailwind/react'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { useAppDispatch } from '../../redux/hooks'
+import { fetchUsers } from '../../redux/slices/thunks'
 
 export const Search = () => {
 
-  const [search, setSearch] = React.useState('')
+  const dispatch = useAppDispatch()
+  const [query, setQuery] = React.useState('')
 
-  const handleSearch = () => {
-    if (search === '' && search.length < 4) {
-      toast.error('Please enter a valid search term', {
+  const handleQuery = () => {
+    if (query === '' && query.length < 4) {
+      toast.error('Please enter a valid query term', {
         position: 'top-right',
       })
+      return
     }
-    // continue with search
+    if (query === 'doublevpartners') {
+      toast.error('This search is not possible', {
+        position: 'top-right',
+      })
+      return
+    }
+    dispatch(fetchUsers(query))
   }
 
   return (
@@ -29,13 +40,13 @@ export const Search = () => {
             labelProps={{
               className: "hidden",
             }}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </div>
         <Button
           className='w-full sm:w-fit'
-          onClick={handleSearch}>Search</Button>
+          onClick={handleQuery}>Search</Button>
       </div>
     </div>
   )
