@@ -30,3 +30,18 @@ export const fetchUser = createAsyncThunk(
     }
   }
 )
+
+export const fetchUserRepos = createAsyncThunk(
+  'github/fetchUserRepos',
+  async (username: string, thunkApi) => {
+    try {
+      const response = await octokit.request('GET /users/{username}/repos', {
+        username,
+        per_page: 10
+      })
+      return response.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  }
+)

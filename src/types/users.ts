@@ -1,3 +1,5 @@
+import { GitHubRepository } from "./repositories";
+
 export interface GitHubUser {
   login: string;
   id: number;
@@ -18,6 +20,7 @@ export interface GitHubUser {
   starred_url: string;
   events_url: string;
   site_admin: boolean;
+  repositories?: GitHubRepository[];
 }
 
 export interface GitHubUserDetails {
@@ -65,4 +68,5 @@ export interface GitHubUserDetails {
     collaborators: number;
     private_repos: number;
   };
+  repositories?: GitHubRepository[];
 }

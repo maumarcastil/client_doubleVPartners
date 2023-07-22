@@ -1,18 +1,25 @@
 import toast from 'react-hot-toast';
 
-import { fetchUser, fetchUsers } from './thunks';
+import { fetchUser, fetchUserRepos, fetchUsers } from './thunks';
 import { createSlice } from '@reduxjs/toolkit';
 import { GitHubUser, GitHubUserDetails } from '../../types/users';
+import { GitHubRepository } from '../../types/repositories';
 
 interface GithubState {
   users: GitHubUser[];
-  user: GitHubUser | GitHubUserDetails | null;
+  user: {
+    data: GitHubUser | GitHubUserDetails | null,
+    repositories?: GitHubRepository[]
+  }
   loading: boolean;
 }
 
 const initialState: GithubState = {
   users: [],
-  user: null,
+  user: {
+    data: null,
+    repositories: []
+  },
   loading: false
 }
 
@@ -24,8 +31,11 @@ export const counterSlice = createSlice({
       state.users = action.payload;
     },
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.user.data = action.payload;
     },
+    setRepositories: (state, action) => {
+      state.user.repositories = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
@@ -38,17 +48,35 @@ export const counterSlice = createSlice({
         });
       }),
       builder.addCase(fetchUser.fulfilled, (state, action) => {
-        state.user = action.payload as GitHubUserDetails;
+        state.user.data = {
+          ...state.user,
+          ...action.payload as GitHubUserDetails,
+        };
       }),
       builder.addCase(fetchUser.rejected, (state) => {
-        state.user = null;
+        state.user.data = null;
         toast.error('Error fetching user', {
           position: 'top-right',
         });
-      });
+      }),
+      builder.addCase(fetchUserRepos.fulfilled, (state, action) => {
+        state.user = {
+          ...state.user,
+          repositories: action.payload as GitHubRepository[],
+        }
+      }),
+      builder.addCase(fetchUserRepos.rejected, (state) => {
+        state.user = {
+          ...state.user,
+          repositories: [],
+        }
+        toast.error('Error fetching user repos', {
+          position: 'top-right',
+        })
+      })
   }
 })
 
-export const { setUsers, setUser } = counterSlice.actions
+export const { setUsers, setUser, setRepositories } = counterSlice.actions
 
 export default counterSlice.reducer
