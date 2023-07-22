@@ -1,12 +1,12 @@
 import toast from 'react-hot-toast';
 
-import { fetchUsers } from './thunks';
+import { fetchUser, fetchUsers } from './thunks';
 import { createSlice } from '@reduxjs/toolkit';
-import { GitHubUser } from '../../types/users';
+import { GitHubUser, GitHubUserDetails } from '../../types/users';
 
 interface GithubState {
   users: GitHubUser[];
-  user: GitHubUser | null;
+  user: GitHubUser | GitHubUserDetails | null;
   loading: boolean;
 }
 
@@ -36,7 +36,16 @@ export const counterSlice = createSlice({
         toast.error('Error fetching users', {
           position: 'top-right',
         });
-      })
+      }),
+      builder.addCase(fetchUser.fulfilled, (state, action) => {
+        state.user = action.payload as GitHubUserDetails;
+      }),
+      builder.addCase(fetchUser.rejected, (state) => {
+        state.user = null;
+        toast.error('Error fetching user', {
+          position: 'top-right',
+        });
+      });
   }
 })
 

@@ -17,3 +17,16 @@ export const fetchUsers = createAsyncThunk(
   }
 )
 
+export const fetchUser = createAsyncThunk(
+  'github/fetchUser',
+  async (username: string, thunkApi) => {
+    try {
+      const response = await octokit.request('GET /users/{username}', {
+        username,
+      })
+      return response.data
+    } catch (error) {
+      return thunkApi.rejectWithValue(error)
+    }
+  }
+)
