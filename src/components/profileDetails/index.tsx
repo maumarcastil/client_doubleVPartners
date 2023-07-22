@@ -20,7 +20,7 @@ function StarIcon() {
 }
 
 const ProfileDetails = () => {
-  const user = useAppSelector(state => state.github.user as GitHubUserDetails)
+  const user = useAppSelector(state => state.github.user.data as GitHubUserDetails)
 
   return (
     <Card shadow={true} className="w-full p-4 rounded-3xl bg-gradient-to-tl from-neutral-900 via-pink-100 to-violet-100">
