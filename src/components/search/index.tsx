@@ -18,10 +18,10 @@ export const Search = () => {
   }
 
   return (
-    <div className='flex rounded-lg  bg-white shadow-lg'>
-      <div className='w-full m-4 flex items-center justify-between gap-6'>
+    <div className='flex rounded-lg mb-4 bg-white shadow-lg'>
+      <div className='w-full m-4 flex flex-col sm:flex-row items-center justify-between gap-6'>
         <div className='w-full flex items-center justify-center'>
-          <FontAwesomeIcon icon={faSearch} className='flex items-center h-8 text-blue-500' />
+          <FontAwesomeIcon icon={faSearch} className='items-center h-8 text-blue-500 hidden sm:flex' />
           <Input
             type="text"
             placeholder='Search'
@@ -33,7 +33,9 @@ export const Search = () => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
-        <Button onClick={handleSearch}>Search</Button>
+        <Button
+          className='w-full sm:w-fit'
+          onClick={handleSearch}>Search</Button>
       </div>
     </div>
   )
