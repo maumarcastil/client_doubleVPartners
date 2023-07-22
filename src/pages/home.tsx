@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { ProfileItems } from "../components/profileItems"
 import { Search } from "../components/search"
 import { useAppDispatch, useAppSelector } from "../redux/hooks"
-import { setUser } from "../redux/slices/githubSlice"
+import { setRepositories, setUser } from "../redux/slices/githubSlice"
 
 function Home() {
   const dispatch = useAppDispatch()
@@ -10,9 +10,8 @@ function Home() {
 
   useEffect(() => {
     dispatch(setUser(null))
+    dispatch(setRepositories([]))
   }, [])
-
-
 
   return (
     <>
