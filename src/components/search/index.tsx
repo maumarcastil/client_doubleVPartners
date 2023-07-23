@@ -5,7 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { useAppDispatch } from '../../redux/hooks'
-import { fetchUsers } from '../../redux/slices/thunks'
+import { fetchUsers } from '../../redux/slices/github/thunks'
 
 export const Search = () => {
 

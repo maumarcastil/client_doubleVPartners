@@ -4,7 +4,7 @@ import { Avatar, Card, CardHeader, Typography } from '@material-tailwind/react'
 
 import { GitHubUser } from '../../types/users';
 import { useAppDispatch } from '../../redux/hooks';
-import { setUser } from '../../redux/slices/githubSlice';
+import { setUser } from '../../redux/slices/github/githubSlice';
 
 interface IProfileItems {
   item: GitHubUser
