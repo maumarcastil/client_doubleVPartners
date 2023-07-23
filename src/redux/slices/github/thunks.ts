@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import octokit from '../../config/octokit'
+import octokit from '../../../config/octokit'
 
 export const fetchUsers = createAsyncThunk(
   'github/fetchUsers',

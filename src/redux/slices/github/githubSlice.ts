@@ -2,8 +2,8 @@ import toast from 'react-hot-toast';
 
 import { fetchUser, fetchUserRepos, fetchUsers } from './thunks';
 import { createSlice } from '@reduxjs/toolkit';
-import { GitHubUser, GitHubUserDetails } from '../../types/users';
-import { GitHubRepository } from '../../types/repositories';
+import { GitHubUser, GitHubUserDetails } from '../../../types/users';
+import { GitHubRepository } from '../../../types/repositories';
 
 interface GithubState {
   users: GitHubUser[];
